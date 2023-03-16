@@ -10,7 +10,11 @@ For each customer
   * Determine purchases for each month How? Store in Object
   * Determine reward points earned for each purchase
   * Determine total reward points for each month
-
+ Rework date to how I need it to be
+ Transform data into how I need it to map through it
+ do I need to dynamically render months?
+ Then built out tables,
+ then use tailwind
 
 
 · Use React JS (do not use TypeScript)
