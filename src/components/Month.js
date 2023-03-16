@@ -1,39 +1,23 @@
+import { months, determineRewards } from "../utils/utils";
 export default function Month({ month, purchases, customer }) {
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  const determineRewards = (price) => {
-    price = Math.floor(price);
-
-    let reward = 0;
-    let remaining = price - 50;
-
-    if (price < 0 || remaining < 0) return reward;
-    if (remaining > 0 && remaining < 49) {
-      reward += remaining;
-    } else {
-      reward = 50;
-      remaining -= 50;
-      reward += remaining * 2;
-    }
-    console.log(reward);
-    return reward;
-  };
   return (
     <>
-      <p>{month} Reward Points:</p>
-      <table>
+      <p>
+        {month} Reward Points:{" "}
+        {purchases
+          .filter((purchase) => {
+            //send purchases for certain month only
+            let date = new Date(purchase.date);
+            return month === months[date.getMonth()];
+          })
+          .map((purchase) => {
+            //determine rewards for each purchase
+            return determineRewards(purchase.price);
+          })
+          //add total rewards
+          .reduce((acc, cur) => acc + cur, 0)}
+      </p>
+      <table className="month">
         <thead>
           <tr>
             <th>Transaction ID</th>

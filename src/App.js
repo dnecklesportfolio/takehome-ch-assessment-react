@@ -1,24 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Month from "./Month";
+import Month from "./components/Month";
+import { months, determineRewards } from "./utils/utils";
+import "./App.css";
 
 function App() {
   const API_URL = "http://localhost:3500/customers";
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  const objPurchases = {};
-  const objRewards = {};
+
   const monthsArr = [];
   const [data, setData] = useState([]);
 
@@ -37,24 +24,9 @@ function App() {
     fetchItems();
   }, []);
 
-  const determineRewards = (price) => {
-    price = Math.floor(price);
-
-    let reward = 0;
-    let remaining = price - 50;
-
-    if (price < 0 || remaining < 0) return reward;
-    if (remaining > 0 && remaining < 49) {
-      reward += remaining;
-    } else {
-      reward = 50;
-      remaining -= 50;
-      reward += remaining * 2;
-    }
-    return reward;
-  };
-
   const calcTotalRewards = (purchaseArr) => {
+    const objPurchases = {};
+    const objRewards = {};
     purchaseArr.forEach((purchase, i) => {
       let date = new Date(purchase.date);
 
@@ -72,23 +44,17 @@ function App() {
     for (const reward in objRewards) {
       total += objRewards[reward];
     }
+   // console.log(objPurchases); { May: 722, June: 1667, July: 446 }
+    // console.log(objRewards); { May: 722, June: 1667, July: 446 }
     return total;
   };
-
-  const calcStats = (purchaseArr, id) => {};
-  // item.id: { purchases: {May: 499, June: 963, July:373},
-  //         rewards: {May: 722} }
-  // item.id: { Months: [May, June,July]
-  //                PurchaseTotal: [499, 963, July:373},
-  //         rewards: {May: 722} }
-  // item.id: [{month:May,purchases:499,rewards:373},{month:June,purchases:963,rewards:1667},{month:July,purchases:373,rewards:446}]
 
   return (
     <div className="App">
       {data ? (
         <ul>
           {data.map((item) => {
-            calcStats(item.purchases, item.id);
+
             return (
               <li key={item.id}>
                 <p>Customer ID: {item.id}</p>
