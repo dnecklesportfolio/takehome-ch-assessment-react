@@ -1,14 +1,18 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
+body {
+  margin: 0 ;
+  padding: 0;
+  background-color: #1E1E1E;
+}
 table {
   border-collapse: collapse;
 }
 
 th, td {
-  border: 1px solid black;
+  border: 1px solid lightslategray;
   padding: 8px;
+  background-color: rgb(23, 23, 23);
+  color: lightgray;
 }
 .App {
 margin: 0 auto;
@@ -24,8 +28,10 @@ width: 500px;
 
 thead th {
   border: none;
+  color:lightgray
 }
 
 li {list-style:none;}
 
-p {text-align: center;}
+p {text-align: center;
+color: white;}
